@@ -1,0 +1,6 @@
+@discount_module.Server_HostAddress = http://localhost:5069
+
+GET {{discount_module.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="discount-module.client/discount-module.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="discount-module.Server/discount-module.Server.csproj" />
+</Solution>
