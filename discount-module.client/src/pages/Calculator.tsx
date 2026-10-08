@@ -20,6 +20,8 @@ import type { ApplyRequest } from "../models/ApplyRequest";
 import { applyCampaign } from "../apis/applyCampaign";
 import axios from "axios";
 import type { ApplyResult } from "../models/ApplyResult";
+import { itemsValidate } from "../validators/itemValidator";
+import { campaignValidate } from "../validators/campaignValidator";
 
 export const Calculator = () => {
   // items management
@@ -113,14 +115,23 @@ export const Calculator = () => {
     );
   };
 
+  // handle submit
+  const [itemSummary, setItemSummary] = useState<ItemRequest[]>([]);
   const [response, setResponse] = useState<ApplyResult>({
     subtotal: 0,
     discount: 0,
     total: 0,
   });
-  const [itemSummary, setItemSummary] = useState<ItemRequest[]>([]);
 
   const handleSubmit = async () => {
+    if (!itemsValidate(items)) {
+      alert("Please check your items.");
+      return;
+    }
+    if (!campaignValidate(campaigns)) {
+      alert("Please check your campaigns.");
+      return;
+    }
     const request: ApplyRequest = { items, campaigns };
     try {
       const response: ApplyResult = await applyCampaign(request);
