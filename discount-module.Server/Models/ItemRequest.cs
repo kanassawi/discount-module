@@ -11,6 +11,9 @@ namespace discount_module.Server.Models
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
+        [JsonPropertyName("quantity")]
+        public int Quantity { get; set; }
+
         [JsonPropertyName("category")]
         public ItemCategory Category { get; set; }
     }

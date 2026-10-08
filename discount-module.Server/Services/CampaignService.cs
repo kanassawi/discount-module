@@ -53,7 +53,7 @@ namespace discount_module.Server.Services
                 throw new BadRequestException("Duplicate campaign categories are not allowed.");
             }
 
-            var subTotal = items.Sum(i => i.Price);
+            var subTotal = items.Sum(i => i.Price * i.Quantity);
             var current = subTotal;
 
             // order campaigns by category: COUPON(0) > ON_TOP(1) > SEASONAL(2)
@@ -90,7 +90,7 @@ namespace discount_module.Server.Services
                     {
                         var percentage = CheckRequire(c.Percentage, "percentage", c.CampaignType);
                         var itemCategory = c.ItemCategory ?? throw new BadRequestException($"{c.CampaignType} requires item category.");
-                        var categoryTotal = items.Where(i => i.Category == itemCategory).Sum(i => i.Price);
+                        var categoryTotal = items.Where(i => i.Category == itemCategory).Sum(i => i.Price * i.Quantity);
                         return categoryTotal * (percentage / 100);
                     }
                 case CampaignType.POINTS:
